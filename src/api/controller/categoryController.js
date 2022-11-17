@@ -2,8 +2,20 @@
 
 
 const categoryModel=require('../models/category')
-const {CreateSuccess}=require('../helper/response')
+const {CreateSuccess,getSuccess}=require('../helper/response')
 
+
+
+
+exports.getCategories=async(req,res,next)=>{
+    try{
+        const categories=await categoryModel.find().lean()
+
+        res.json(getSuccess({data:categories}))
+    }catch(err){
+        res.status(500).json(err)
+    }
+}
 exports.createCategory=async(req,res,next)=>{
     try{
         const {title}=req.body

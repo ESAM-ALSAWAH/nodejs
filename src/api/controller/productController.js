@@ -24,9 +24,9 @@ exports.getProducts = async (req, res, next) => {
         /* GET PRODUCTS */
         const products = await productModel.find({
             ...Filter,
-
-        })
-            .populate('category')
+            
+        },'price title')
+            .populate('category','title')
             .sort([[sort.columnSort, sort.dir]])
             .lean()
             .skip((+page - 1) * limit)
